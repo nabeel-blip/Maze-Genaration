@@ -14,6 +14,7 @@ class Cell:
     def set_false(self, wall_number):
         self.walls[wall_number] = False
 
+
     def actual_coordinates(self, x, y, cell_size):
         return x * cell_size, y * cell_size
 
