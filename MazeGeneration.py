@@ -1,12 +1,11 @@
-import pygame
-from random import randint
 from CellClass import Cell
-from HelperFunctions import *
+from searchingAlgorithm import *
 
 
 def main():
-    screen_size = (800, 800)
-    number_of_cell_each_row = 16
+    screen_size = (400, 400)
+    number_of_cell_each_row = 32
+
     cell_size = int(screen_size[0] / number_of_cell_each_row)
     margin = 5
 
@@ -29,7 +28,7 @@ def main():
         pygame.event.get()
 
         current.highlight = True
-        show_grid(screen, grid, cell_size)
+        # show_grid(screen, grid, cell_size)
 
         neighbours = get_neighbours(current, grid, number_of_cell_each_row)
         next = get_random_neighbour(neighbours)
@@ -48,12 +47,19 @@ def main():
 
         if len(stack) <= 0:
             break
+    show_grid(screen, grid, cell_size,False)
 
     print("done")
-    show_grid(screen, grid, cell_size)
+    start = grid[0]
+    goal = grid[len(grid) - 1]
+    show_grid(screen, grid, cell_size,False)
+
+    print_path2(a_star_candy(start, goal, grid, number_of_cell_each_row, screen, cell_size), screen, cell_size)
+
+    print("done")
+
     while run:
 
-        # pygame.time.wait(100)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
