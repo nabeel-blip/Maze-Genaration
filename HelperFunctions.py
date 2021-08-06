@@ -20,6 +20,7 @@ def print_path(path, screen, cell_size):
 
 
 def print_path2(path, screen, cell_size):
+    print(path[0],path[1],path[2])
     for x in range(0, len(path)):
         try:
             if not (path[x].x - path[x + 1].x):
@@ -33,6 +34,7 @@ def print_path2(path, screen, cell_size):
                              [path[x].x * cell_size + cell_size / 4, path[x].y * cell_size + cell_size / 4,
                               cell_size / 2,
                               cell_size / 2])
+
         pygame.display.update()
 
 

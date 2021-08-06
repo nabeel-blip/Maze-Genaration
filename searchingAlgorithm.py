@@ -1,8 +1,10 @@
 from HelperFunctions import *
 from copy import deepcopy
 
+
 def actual_coordinates(x, y, cell_size):
     return x * cell_size, y * cell_size
+
 
 def debug(x):
     print(x.x, x.y)
@@ -15,8 +17,6 @@ def GetH(neighbour, goal):
 def a_star_candy(starting, goal, grid, number_of_cell_each_row, screen, cell_size):
     queue = [([starting], 0)]
     visited = [starting]
-    debug(starting)
-    debug(goal)
     while queue:
         pygame.event.get()
 
@@ -41,3 +41,38 @@ def a_star_candy(starting, goal, grid, number_of_cell_each_row, screen, cell_siz
                 neighbour.highlight = True
                 neighbour.show(screen, cell_size)
                 pygame.display.update()
+
+
+def DFS_r(grid, current, goal, number_of_cell_each_row, screen, cell_size, visited=None, exit_key=False):
+    if visited is None:
+        exit_key = True
+        visited = []
+
+    if current == goal:
+        if current not in visited:
+            visited.append(current)
+        return True
+    x = False
+    if current not in visited:
+        # print(current)
+        visited.append(current)
+        current.highlight = True
+        current.show(screen, cell_size)
+        pygame.display.update()
+
+        for neighbour in get_neighbours_(current, grid, number_of_cell_each_row):
+            x = DFS_r(grid, neighbour, goal, number_of_cell_each_row,screen,cell_size, visited)
+
+            if isinstance(x, bool):
+                if x:
+                    x = [current, neighbour]
+                    break
+            else:
+                x.insert(0, current)
+                break
+    if exit_key:
+        show_grid(screen, grid, cell_size, False)
+
+        return x
+    else:
+        return x

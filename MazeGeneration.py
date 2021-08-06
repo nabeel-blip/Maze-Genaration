@@ -3,15 +3,16 @@ from searchingAlgorithm import *
 
 
 def main():
-    screen_size = (400, 400)
-    number_of_cell_each_row = 32
+    screen_size = (800, 800)
+    number_of_cell_each_row = 40
+
 
     cell_size = int(screen_size[0] / number_of_cell_each_row)
     margin = 5
 
     pygame.init()
-    screen = pygame.display.set_mode(screen_size)
     pygame.display.set_caption("Maze Generation")
+    screen = pygame.display.set_mode(screen_size)
     run = True
     grid = []
 
@@ -28,7 +29,7 @@ def main():
         pygame.event.get()
 
         current.highlight = True
-        # show_grid(screen, grid, cell_size)
+        #show_grid(screen, grid, cell_size)
 
         neighbours = get_neighbours(current, grid, number_of_cell_each_row)
         next = get_random_neighbour(neighbours)
@@ -47,14 +48,16 @@ def main():
 
         if len(stack) <= 0:
             break
-    show_grid(screen, grid, cell_size,False)
+    show_grid(screen, grid, cell_size, False)
 
     print("done")
     start = grid[0]
     goal = grid[len(grid) - 1]
-    show_grid(screen, grid, cell_size,False)
-
+    show_grid(screen, grid, cell_size, False)
     print_path2(a_star_candy(start, goal, grid, number_of_cell_each_row, screen, cell_size), screen, cell_size)
+    #show_grid(screen, grid, cell_size, False)
+    print("dfs")
+    #print_path2(DFS_r(grid, start, goal, number_of_cell_each_row,screen,cell_size),screen,cell_size)
 
     print("done")
 
